@@ -55,8 +55,6 @@ function! vim_project#RestoreLayout()
     if s:VimProjDirExists()
         if filereadable('.vimproject/session')
             execute ":source .vimproject/session"
-        else
-            echo "No session layout found"
         endif
     endif
 endfunction
