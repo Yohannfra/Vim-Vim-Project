@@ -1,6 +1,18 @@
 # Vim-Vim-Project
 A simple and lightweight vim plugin for an IDE-like project feature.
 
+## Installation
+
+### Using Plug
+```
+Plug 'Yohannfra/Vim-Vim-Project'
+```
+
+### Manual installation
+```
+git clone https://github.com/Yohannfra/Vim-Vim-Project/ ~/.vim/plugin/
+```
+
 ## Features
 
 - Super easy/transparent to use and configure
@@ -45,9 +57,21 @@ Execute the g:vim_project_BuildCommand you set in your vimproj.vim.
 :VimProjectBuild
 ```
 
+In my .vimrc i mapped the F4 key for this.
+```vim
+nnoremap <F4> :VimProjectBuild <CR>
+```
+
+#### Run
+
 Execute the g:vim_project_RunCommand you set in your vimproj.vim.
 ```vim
 :VimProjectRun
+```
+
+In my .vimrc i mapped the F5 key for this.
+```vim
+nnoremap <F5> :VimProjectRun<CR>
 ```
 
 ####  Save/Restore Layout
@@ -67,6 +91,7 @@ let g:vim_project_general_save_on_write = 0
 
 Restore the saved layout if there is one.\
 This command is called on vim startup if g:vim_project_AutoRestoreLayout is set to 1
+and if you don't call vim with command line arguments
 ```vim
 :VimProjectRestoreLayout
 ```
