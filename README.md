@@ -41,12 +41,12 @@ let g:vim_project_AutoRestoreLayout = 1
 #### Build
 
 Execute the g:vim_project_BuildCommand you set in your vimproj.vim.
-```
+```vim
 :VimProjectBuild
 ```
 
 Execute the g:vim_project_RunCommand you set in your vimproj.vim.
-```
+```vim
 :VimProjectRun
 ```
 
@@ -55,19 +55,19 @@ Execute the g:vim_project_RunCommand you set in your vimproj.vim.
 Save the current layout. It uses the :mksession feature of vim.\
 If you want to understand how it works read :h :mksession
 It will save it in .vimproject/session
-```
+```vim
 :VimProjectSaveLayout
 ```
 
 By default it will call this command after time you write a buffer.\
 Use this if you don't want this behavior
-```
+```vim
 let g:vim_project_general_save_on_write = 0
 ```
 
 Restore the saved layout if there is one.\
 This command is called on vim startup if g:vim_project_AutoRestoreLayout is set to 1
-```
+```vim
 :VimProjectRestoreLayout
 ```
 
