@@ -20,6 +20,13 @@ function! s:VimProjDirExists()
     return isdirectory('.vimproject') && filereadable('.vimproject/vimproj.vim')
 endfunction
 
+function! s:PrintErrMsgProject()
+    if g:vim_project_found == 0
+        echoerr "No Vim Project found. Use :VimProjectInit to create one"
+        return
+    endif
+endfunction
+
 function! vim_project#Init()
     if s:VimProjDirExists()
         echo "There is already a vim project : " . g:vim_project_ProjectName
@@ -34,27 +41,37 @@ function! vim_project#Init()
 endfunction
 
 function! vim_project#Run()
-    if !empty(g:vim_project_RunCommand)
+    if g:vim_project_found && exists('g:vim_project_RunCommand') &&
+                \ !empty(g:vim_project_RunCommand)
         execute ":! " . g:vim_project_RunCommand
+    else
+        call s:PrintErrMsgProject()
     endif
 endfunction
 
 function! vim_project#Build()
-    if !empty(g:vim_project_BuildCommand)
+    if g:vim_project_found && exists('g:vim_project_BuildCommand') &&
+                \ !empty(g:vim_project_BuildCommand)
         execute ":! " . g:vim_project_BuildCommand
+    else
+        call s:PrintErrMsgProject()
     endif
 endfunction
 
 function! vim_project#SaveLayout()
-    if s:VimProjDirExists()
+    if g:vim_project_found && s:VimProjDirExists()
         execute ":mksession! .vimproject/session"
+    else
+        call s:PrintErrMsgProject()
     endif
 endfunction
 
 function! vim_project#RestoreLayout()
-    if s:VimProjDirExists()
+    if g:vim_project_found && s:VimProjDirExists()
         if filereadable('.vimproject/session')
             execute ":source .vimproject/session"
         endif
+    else
+        call s:PrintErrMsgProject()
     endif
 endfunction

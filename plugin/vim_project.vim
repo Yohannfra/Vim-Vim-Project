@@ -8,9 +8,12 @@ if !exists('g:vim_project_general_save_on_write')
     let g:vim_project_general_save_on_write = 1
 endif
 
+let g:vim_project_found = 0
+
 if argc() == 0 && filereadable('.vimproject/vimproj.vim')
         source .vimproject/vimproj.vim
         echo "Project found : " . g:vim_project_ProjectName
+        let g:vim_project_found = 1
         if exists('g:vim_project_AutoRestoreLayout') &&
                     \ g:vim_project_AutoRestoreLayout == 1
             call vim_project#RestoreLayout()
