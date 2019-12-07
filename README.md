@@ -70,3 +70,7 @@ This command is called on vim startup if g:vim_project_AutoRestoreLayout is set 
 ```
 :VimProjectRestoreLayout
 ```
+
+## License
+
+This project is licensed under the terms of the MIT license.
