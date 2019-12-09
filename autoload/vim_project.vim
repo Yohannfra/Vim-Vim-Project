@@ -1,5 +1,5 @@
 let s:vimproj_template_array = [
-            \ "\" VimProject file",
+            \ "\" VimProject file", "",
             \ "\" Project Name:",
             \ "let g:vim_project_ProjectName = \"DefaultName\"",
             \ "",
