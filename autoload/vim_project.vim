@@ -1,5 +1,5 @@
 let s:vimproj_template_array = [
-            \ "\" VimProject file",
+            \ "\" VimProject file", "",
             \ "\" Project Name:",
             \ "let g:vim_project_ProjectName = \"DefaultName\"",
             \ "",
@@ -14,6 +14,9 @@ let s:vimproj_template_array = [
             \ "",
             \ "\" Autoload vim layout:",
             \ "let g:vim_project_AutoRestoreLayout = 1",
+            \ "",
+            \ "\" Uncomment if it is a project for Epitech",
+            \ "\"let g:is_epitech_project = 1",
             \]
 
 function! s:VimProjDirExists()
