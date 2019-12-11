@@ -21,7 +21,7 @@ if argc() == 0 && filereadable('.vimproject/vimproj.vim')
         if exists('g:vim_project_SaveLayout') &&
                     \ g:vim_project_SaveLayout == 1 &&
                     \ g:vim_project_general_save_on_write == 1
-            autocmd! BufWritePre * :mksession! .vimproject/session
+            autocmd! BufWritePre * :mksession! .vimproject/session.vim
         endif
 endif
 
