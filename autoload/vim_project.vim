@@ -60,7 +60,7 @@ endfunction
 
 function! vim_project#SaveLayout()
     if g:vim_project_found && s:VimProjDirExists()
-        execute ":mksession! .vimproject/session"
+        execute ":mksession! .vimproject/session.vim"
     else
         call s:PrintErrMsgProject()
     endif
@@ -68,8 +68,8 @@ endfunction
 
 function! vim_project#RestoreLayout()
     if g:vim_project_found && s:VimProjDirExists()
-        if filereadable('.vimproject/session')
-            execute ":source .vimproject/session"
+        if filereadable('.vimproject/session.vim')
+            execute ":source .vimproject/session.vim"
         endif
     else
         call s:PrintErrMsgProject()
