@@ -41,6 +41,22 @@ function! vim_project#Init()
         call append('^', line)
     endfor
     write
+    call vim_project#Load()
+endfunction
+
+function! vim_project#Load()
+        source .vimproject/vimproj.vim
+        echo "Project found : " . g:vim_project_ProjectName
+        let g:vim_project_found = 1
+        if exists('g:vim_project_AutoRestoreLayout') &&
+                    \ g:vim_project_AutoRestoreLayout == 1
+            call vim_project#RestoreLayout()
+        endif
+        if exists('g:vim_project_SaveLayout') &&
+                    \ g:vim_project_SaveLayout == 1 &&
+                    \ g:vim_project_general_save_on_write == 1
+            autocmd! BufWritePre * :mksession! .vimproject/session.vim
+        endif
 endfunction
 
 function! vim_project#Run()
