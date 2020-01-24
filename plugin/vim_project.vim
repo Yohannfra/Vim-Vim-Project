@@ -8,8 +8,11 @@ endif
 
 let g:vim_project_found = 0
 
-if argc() == 0 && filereadable('.vimproject/vimproj.vim')
-    call vim_project#Load()
+if filereadable('.vimproject/vimproj.vim')
+        let choice = input("vimproject found, do you want to load it ? (y/n) : ")
+        if choice == "y"
+            call vim_project#Load()
+        endif
 endif
 
 autocmd BufWritePost vimproj.vim :source %

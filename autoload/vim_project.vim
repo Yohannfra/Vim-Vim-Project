@@ -48,10 +48,7 @@ function! vim_project#Load()
         source .vimproject/vimproj.vim
         echo "Project found : " . g:vim_project_ProjectName
         let g:vim_project_found = 1
-        if exists('g:vim_project_AutoRestoreLayout') &&
-                    \ g:vim_project_AutoRestoreLayout == 1
-            call vim_project#RestoreLayout()
-        endif
+        call vim_project#RestoreLayout()
         if exists('g:vim_project_SaveLayout') &&
                     \ g:vim_project_SaveLayout == 1 &&
                     \ g:vim_project_general_save_on_write == 1
@@ -88,7 +85,14 @@ endfunction
 function! vim_project#RestoreLayout()
     if g:vim_project_found && s:VimProjDirExists()
         if filereadable('.vimproject/session.vim')
-            execute ":source .vimproject/session.vim"
+            if g:vim_project_AutoRestoreLayout == 0
+                let choice = input("vimproject layout found, do you want to load it ? (y/n) : ")
+                if choice == "y"
+                    execute ":source .vimproject/session.vim"
+                endif
+            else
+                execute ":source .vimproject/session.vim"
+            endif
         endif
     else
         call s:PrintErrMsgProject()
