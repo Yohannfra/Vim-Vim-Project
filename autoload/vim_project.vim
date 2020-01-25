@@ -15,8 +15,6 @@ let s:vimproj_template_array = [
             \ "\" Autoload vim layout:",
             \ "let g:vim_project_AutoRestoreLayout = 1",
             \ "",
-            \ "\" Uncomment if it is a project for Epitech",
-            \ "\"let g:is_epitech_project = 1",
             \]
 
 function! s:VimProjDirExists()
@@ -37,6 +35,12 @@ function! vim_project#Init()
     endif
     call mkdir('.vimproject', 'p')
     execute 'edit .vimproject/vimproj.vim'
+    if exists("g:vim_project_custom_variables") &&
+                \ !empty(g:vim_project_custom_variables)
+        for line in reverse(g:vim_project_custom_variables)
+            call append('^', line)
+        endfor
+    endif
     for line in reverse(s:vimproj_template_array)
         call append('^', line)
     endfor
