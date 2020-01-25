@@ -21,6 +21,23 @@ git clone https://github.com/Yohannfra/Vim-Vim-Project/ ~/.vim/plugin/
 - Save and restore vim layout
 - I didn't really need more, feel free to open an issue if you want to add something
 
+You can also add any vim custom config that you could want for your project:\
+In your .vimrc create an array called *g:vim_project_custom_variables*
+with the lines that you want to add to the
+vimproject file, it will be automatically added at its creation.\
+example:
+```vim
+let g:vim_project_custom_variables= [
+\"let my_variable=1"
+\"  augroup vimprojectAutocmds",
+\"      autocmd!",
+\"      autocmd BufReadPost,BufNewFile *.c,*.h,*.py,Makefile,*.cpp,*.hpp",
+\"          \\ call that_fancy_plugin()", "
+\"  augroup END",
+\]
+
+```
+
 ## Commands
 
 #### Initialize a vim project.
