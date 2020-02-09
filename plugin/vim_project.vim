@@ -10,20 +10,6 @@ endif
 
 let g:vim_project_found = 0
 
-fun! Confirm(msg)
-    echo a:msg . ' '
-    let l:answer = nr2char(getchar())
-
-    if l:answer ==? 'y'
-        return 1
-    elseif l:answer ==? 'n'
-        return 0
-    else
-        echo 'Please enter "y" or "n"'
-        return Confirm(a:msg)
-    endif
-endfun
-
 if filereadable('.vimproject/vimproj.vim')
     if 1 == confirm("vimproject found, do you want to load it ?", "&Yes\n&No", "n")
         call vim_project#Load()
