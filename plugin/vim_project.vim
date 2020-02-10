@@ -19,6 +19,7 @@ endif
 autocmd BufWritePost vimproj.vim :source %
 
 command! VimProjectInit :call vim_project#Init()
+command! VimProjectLoad :call vim_project#Load()
 command! VimProjectRun :call vim_project#Run()
 command! VimProjectBuild :call vim_project#Build()
 command! VimProjectSaveLayout :call vim_project#SaveLayout()
