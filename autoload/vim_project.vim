@@ -88,12 +88,15 @@ endfunction
 
 function! vim_project#RestoreLayout()
     if g:vim_project_found && s:VimProjDirExists()
+        if !filereadable(".vimproject/session.vim")
+            return
+        endif
         if g:vim_project_AutoRestoreLayout == 0
             if 1 == confirm("vimproject layout found, do you want to load it ?", "&Yes\n&No", "n")
-                execute ":source .vimproject/session.vim"
+                execute ":silent! source .vimproject/session.vim"
             endif
         else
-            execute ":source .vimproject/session.vim"
+            execute ":silent! source .vimproject/session.vim"
         endif
     else
         call s:PrintErrMsgProject()
