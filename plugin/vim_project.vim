@@ -4,9 +4,8 @@ endif
 
 let g:vim_project_loadded = 1
 
-if !exists('g:vim_project_general_save_on_write')
-    let g:vim_project_general_save_on_write = 1
-endif
+let g:vim_project_general_save_on_write =
+            \ get(g:, 'vim_project_general_save_on_write', 1)
 
 let g:vim_project_found = 0
 
