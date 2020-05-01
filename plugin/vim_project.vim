@@ -1,4 +1,6 @@
-if exists('g:vim_project_loadded')
+let g:NoVimProject = get(g:, 'NoVimProject')
+
+if exists('g:vim_project_loadded') || g:NoVimProject == 1
     finish
 endif
 
