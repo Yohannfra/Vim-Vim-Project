@@ -18,7 +18,7 @@ let s:vimproj_template_array = [
             \]
 
 function! s:VimProjDirExists()
-    return isdirectory('.vimproject') && filereadable('.vimproject/vimproj.vim')
+    return isdirectory(s:project_path) && filereadable(s:project_path_vimproj)
 endfunction
 
 function! s:PrintErrMsgProject()
@@ -49,7 +49,10 @@ function! vim_project#Init()
 endfunction
 
 function! vim_project#Load()
-        source .vimproject/vimproj.vim
+        let s:project_path = getcwd() . '/' . '.vimproject/'
+        let s:project_path_vimproj = s:project_path . 'vimproj.vim'
+        let s:project_path_session = s:project_path . 'session.vim'
+        execute "source " . s:project_path_vimproj
         echo "Project found : " . g:vim_project_ProjectName
         let g:vim_project_found = 1
         call vim_project#RestoreLayout()
@@ -57,6 +60,7 @@ function! vim_project#Load()
                     \ g:vim_project_SaveLayout == 1 &&
                     \ g:vim_project_general_save_on_write == 1
             autocmd! BufWritePre * :mksession! .vimproject/session.vim
+            execute "autocmd! BufWritePre * :mksession! " s:project_path_session
         endif
 endfunction
 
@@ -80,7 +84,7 @@ endfunction
 
 function! vim_project#SaveLayout()
     if g:vim_project_found && s:VimProjDirExists()
-        execute ":mksession! .vimproject/session.vim"
+        execute ":mksession! " . s:project_path_session
     else
         call s:PrintErrMsgProject()
     endif
@@ -88,15 +92,15 @@ endfunction
 
 function! vim_project#RestoreLayout()
     if g:vim_project_found && s:VimProjDirExists()
-        if !filereadable(".vimproject/session.vim")
+        if !filereadable(s:project_path_session)
             return
         endif
         if g:vim_project_AutoRestoreLayout == 0
             if 1 == confirm("vimproject layout found, do you want to load it ?", "&Yes\n&No", "n")
-                execute ":silent! source .vimproject/session.vim"
+                execute ":silent! source " . s:project_path_session
             endif
         else
-            execute ":silent! source .vimproject/session.vim"
+            execute ":silent! source " . s:project_path_session
         endif
     else
         call s:PrintErrMsgProject()
