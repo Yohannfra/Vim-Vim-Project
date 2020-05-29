@@ -60,7 +60,7 @@ function! vim_project#Load()
                     \ g:vim_project_SaveLayout == 1 &&
                     \ g:vim_project_general_save_on_write == 1
             autocmd! BufWritePre * :mksession! .vimproject/session.vim
-            execute "autocmd! BufWritePre * :mksession! " s:project_path_session
+            execute "autocmd! BufWritePre * :mksession! " . s:project_path_session
         endif
 endfunction
 
