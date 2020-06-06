@@ -29,6 +29,9 @@ function! s:PrintErrMsgProject()
 endfunction
 
 function! vim_project#Init()
+    let s:project_path = getcwd() . '/' . '.vimproject/'
+    let s:project_path_vimproj = s:project_path . 'vimproj.vim'
+    let s:project_path_session = s:project_path . 'session.vim'
     if s:VimProjDirExists()
         echo "There is already a vim project : " . g:vim_project_ProjectName
         return
@@ -49,19 +52,19 @@ function! vim_project#Init()
 endfunction
 
 function! vim_project#Load()
-        let s:project_path = getcwd() . '/' . '.vimproject/'
-        let s:project_path_vimproj = s:project_path . 'vimproj.vim'
-        let s:project_path_session = s:project_path . 'session.vim'
-        execute "source " . s:project_path_vimproj
-        echo "Project found : " . g:vim_project_ProjectName
-        let g:vim_project_found = 1
-        call vim_project#RestoreLayout()
-        if exists('g:vim_project_SaveLayout') &&
-                    \ g:vim_project_SaveLayout == 1 &&
-                    \ g:vim_project_general_save_on_write == 1
-            autocmd! BufWritePre * :mksession! .vimproject/session.vim
-            execute "autocmd! BufWritePre * :mksession! " . s:project_path_session
-        endif
+    let s:project_path = getcwd() . '/' . '.vimproject/'
+    let s:project_path_vimproj = s:project_path . 'vimproj.vim'
+    let s:project_path_session = s:project_path . 'session.vim'
+    execute "source " . s:project_path_vimproj
+    echo "Project found : " . g:vim_project_ProjectName
+    let g:vim_project_found = 1
+    call vim_project#RestoreLayout()
+    if exists('g:vim_project_SaveLayout') &&
+                \ g:vim_project_SaveLayout == 1 &&
+                \ g:vim_project_general_save_on_write == 1
+        autocmd! BufWritePre * :mksession! .vimproject/session.vim
+        execute "autocmd! BufWritePre * :mksession! " . s:project_path_session
+    endif
 endfunction
 
 function! vim_project#Run()
