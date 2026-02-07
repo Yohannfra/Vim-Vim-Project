@@ -11,10 +11,8 @@ let g:vim_project_general_save_on_write =
 
 let g:vim_project_found = 0
 
-if filereadable('.vimproject/vimproj.vim')
-    if 1 == confirm("vimproject found, do you want to load it ?", "&Yes\n&No", "n")
-        call vim_project#Load()
-    endif
+if filereadable('.vimproject/vimproj.vim') && argc() == 0
+     call vim_project#Load()
 endif
 
 autocmd BufWritePost vimproj.vim :source %
