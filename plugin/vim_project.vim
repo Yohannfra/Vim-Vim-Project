@@ -1,10 +1,10 @@
 let g:NoVimProject = get(g:, 'NoVimProject')
 
-if exists('g:vim_project_loadded') || g:NoVimProject == 1
+if exists('g:vim_project_loaded') || g:NoVimProject == 1
     finish
 endif
 
-let g:vim_project_loadded = 1
+let g:vim_project_loaded = 1
 
 let g:vim_project_general_save_on_write =
             \ get(g:, 'vim_project_general_save_on_write', 1)
