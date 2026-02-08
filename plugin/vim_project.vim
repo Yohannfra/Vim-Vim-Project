@@ -11,11 +11,14 @@ let g:vim_project_general_save_on_write =
 
 let g:vim_project_found = 0
 
-if filereadable('.vimproject/vimproj.vim') && argc() == 0
+if filereadable(getcwd() . '/.vimproject/vimproj.vim') && argc() == 0
      call vim_project#Load()
 endif
 
-autocmd BufWritePost vimproj.vim :source %
+augroup VimProject
+    autocmd!
+    autocmd BufWritePost */\.vimproject/vimproj.vim :source %
+augroup END
 
 command! VimProjectInit :call vim_project#Init()
 command! VimProjectLoad :call vim_project#Load()

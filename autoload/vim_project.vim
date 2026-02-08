@@ -36,16 +36,16 @@ function! vim_project#Init()
         echo "There is already a vim project : " . g:vim_project_ProjectName
         return
     endif
-    call mkdir('.vimproject', 'p')
-    execute 'edit .vimproject/vimproj.vim'
+    call mkdir(s:project_path, 'p')
+    execute 'edit ' . s:project_path_vimproj
     if exists("g:vim_project_custom_variables") &&
                 \ !empty(g:vim_project_custom_variables)
         for line in reverse(g:vim_project_custom_variables)
-            call append('^', line)
+            call append(0, line)
         endfor
     endif
     for line in reverse(s:vimproj_template_array)
-        call append('^', line)
+        call append(0, line)
     endfor
     write
     call vim_project#Load()
@@ -62,27 +62,35 @@ function! vim_project#Load()
     if exists('g:vim_project_SaveLayout') &&
                 \ g:vim_project_SaveLayout == 1 &&
                 \ g:vim_project_general_save_on_write == 1
-        autocmd! BufWritePre * :mksession! .vimproject/session.vim
-        execute "autocmd! BufWritePre * :mksession! " . s:project_path_session
+        augroup VimProjectAutoSave
+            autocmd!
+            execute "autocmd BufWritePre * :mksession! " . s:project_path_session
+        augroup END
     endif
 endfunction
 
 function! vim_project#Run()
-    if g:vim_project_found && exists('g:vim_project_RunCommand') &&
-                \ !empty(g:vim_project_RunCommand)
-        execute ":! " . g:vim_project_RunCommand
-    else
+    if !g:vim_project_found
         call s:PrintErrMsgProject()
+        return
     endif
+    if !exists('g:vim_project_RunCommand') || empty(g:vim_project_RunCommand)
+        echoerr "No run command set. Define g:vim_project_RunCommand in vimproj.vim"
+        return
+    endif
+    execute ":! " . g:vim_project_RunCommand
 endfunction
 
 function! vim_project#Build()
-    if g:vim_project_found && exists('g:vim_project_BuildCommand') &&
-                \ !empty(g:vim_project_BuildCommand)
-        execute ":! " . g:vim_project_BuildCommand
-    else
+    if !g:vim_project_found
         call s:PrintErrMsgProject()
+        return
     endif
+    if !exists('g:vim_project_BuildCommand') || empty(g:vim_project_BuildCommand)
+        echoerr "No build command set. Define g:vim_project_BuildCommand in vimproj.vim"
+        return
+    endif
+    execute ":! " . g:vim_project_BuildCommand
 endfunction
 
 function! vim_project#SaveLayout()
